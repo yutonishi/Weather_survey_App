@@ -9,7 +9,10 @@
 <body>
 
   <div id="app">
-    <div class="row" v-for="pair in items">
+    <div>
+      <input type="text" v-model="searchPrefecture" placeholder="Search">
+    </div>
+    <div class="row" v-for="pair in eventedSearch">
       <p>{{ pair.Id }}.</p>
       <p>{{ pair.Name }}</p>
     </div>
@@ -28,12 +31,29 @@
     {'Id':'7', 'Name':'Tochigi'}
   ];
 
-  var app = new Vue({
+  var app = new Vue ({
     el: '#app',
     data: {
-      items: items
-    }
-  });
+      items: items,
+      searchPrefecture: ''//入力された県名を格納
+    },
+    computed: {
+      eventedSearch: function(){
+        let list = this.items.slice();
+
+        if(this.searchPrefecture){
+          list = list.filter(element => {
+            return Object.keys(element).some(key => {
+              if(key === 'Name'){
+                return element[key].indexOf(this.searchPrefecture) > -1;
+              }
+            });
+          });
+        }
+        return list;
+      }
+    },
+  })
 </script>
 </body>
 </html>
