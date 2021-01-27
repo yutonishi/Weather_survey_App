@@ -8,9 +8,32 @@
 </head>
 <body>
 
+  <div id="app">
+    <div class="row" v-for="pair in items">
+      <p>{{ pair.Id }}.</p>
+      <p>{{ pair.Name }}</p>
+    </div>
+  </div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script>
-  
+
+  const items = [
+    {'Id':'1', 'Name':'Tokyo'},
+    {'Id':'2', 'Name':'Chiba'},
+    {'Id':'3', 'Name':'Saitama'},
+    {'Id':'4', 'Name':'Kanagawa'},
+    {'Id':'5', 'Name':'Ibaragi'},
+    {'Id':'6', 'Name':'Gunma'},
+    {'Id':'7', 'Name':'Tochigi'}
+  ];
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      items: items
+    }
+  });
 </script>
 </body>
 </html>
