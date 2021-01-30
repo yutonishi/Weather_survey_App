@@ -8,9 +8,17 @@
 </head>
 <body>
 
+  <div id="app">
+    <div>
+      <input type="text" v-model="searchPrefecture" placeholder="Search">
+    </div>
+    <div class="row" v-for="pair in eventedSearch">
+      <p>{{ pair.Id }}.</p>
+      <p>{{ pair.Name }}</p>
+    </div>
+  </div>
+
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-<script>
-  
-</script>
+<script src="App.vue"></script>
 </body>
 </html>
