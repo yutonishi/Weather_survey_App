@@ -19,41 +19,6 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-<script>
-
-  const items = [
-    {'Id':'1', 'Name':'Tokyo'},
-    {'Id':'2', 'Name':'Chiba'},
-    {'Id':'3', 'Name':'Saitama'},
-    {'Id':'4', 'Name':'Kanagawa'},
-    {'Id':'5', 'Name':'Ibaragi'},
-    {'Id':'6', 'Name':'Gunma'},
-    {'Id':'7', 'Name':'Tochigi'}
-  ];
-
-  var app = new Vue ({
-    el: '#app',
-    data: {
-      items: items,
-      searchPrefecture: ''//入力された県名を格納
-    },
-    computed: {
-      eventedSearch: function(){
-        let list = this.items.slice();
-
-        if(this.searchPrefecture){
-          list = list.filter(element => {
-            return Object.keys(element).some(key => {
-              if(key === 'Name'){
-                return element[key].indexOf(this.searchPrefecture) > -1;
-              }
-            });
-          });
-        }
-        return list;
-      }
-    },
-  })
-</script>
+<script src="App.vue"></script>
 </body>
 </html>
