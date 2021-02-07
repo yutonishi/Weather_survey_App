@@ -13,14 +13,17 @@ const items = [
     data: {
       items: items,
       searchPrefecture: '', //入力された県名を格納
+      searchRegion: '',
       city: null,
       temp: null,
       condition: {
         main: null
       }
     },
-    mounted: function(){
-      axios.get('https://api.openweathermap.org/data/2.5/weather?q=tokyo&appid=0df130b4cca7062f4bd8ec6b62fcdcc2')
+    mounted: function(){     
+      axios.get('https://api.openweathermap.org/data/2.5/weather', {
+        params: { q: this.searchRegion, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
+      })
       .then(function(response){
         this.city = response.data.name
         this.temp = response.data.main.temp

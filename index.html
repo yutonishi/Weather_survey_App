@@ -17,14 +17,16 @@
       <p>{{ pair.Name }}</p>
     </div>
     <div>
+      <input type="text" v-model="searchRegion" placeholder="Search">
+    </div>
+    <div>
       <p>{{ city }}</p>
       <p>{{ condition.main }}</p>
       <p>{{ temp | roundUp }}</p>
     </div>
   </div>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
