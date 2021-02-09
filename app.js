@@ -14,13 +14,14 @@ const items = [
       items: items,
       searchPrefecture: '', //入力された県名を格納
       searchRegion: '',
+      prefs: '',
       city: null,
       temp: null,
       condition: {
         main: null
       }
     },
-    mounted: function(){     
+    beforeUpdate: function(){//mountedだとエラーになる（ライフサイクルについて）
       axios.get('https://api.openweathermap.org/data/2.5/weather', {
         params: { q: this.searchRegion, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
       })
@@ -33,11 +34,24 @@ const items = [
         console.log(error)
       })
     },
+    mounted: function(){
+      axios.get('https://opendata.resas-portal.go.jp/api/v1/prefectures',{
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": "ZTeuqJL7rj5gSslTavfjvbmV83NSvTvFUjQsNdY8"
+        }
+      })
+      .then(response => this.prefs = response.data)
+      .catch(function(error){
+        console.log(error)
+      })
+    },
     filters: {
       roundUp(value){
         return Math.ceil(value)
       }
     },
+    //検索機能
     computed: {
       eventedSearch: function(){
         let list = this.items.slice();
