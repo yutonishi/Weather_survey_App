@@ -1,3 +1,16 @@
 .row {
   display: flex;
 }
+
+button {
+  text-decoration: none;
+  
+  &:hover {
+    opacity: .6s;
+  }
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+}

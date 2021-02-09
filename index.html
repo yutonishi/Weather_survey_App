@@ -9,27 +9,26 @@
 <body>
 
   <div id="app">
-    <div>
+    <!-- <div>
       <input type="text" v-model="searchPrefecture" placeholder="Search">
     </div>
     <div class="row" v-for="pair in eventedSearch">
-      <p>{{ pair.Id }}.</p>
+      <p>{{ pair.Id }}</p>
       <p>{{ pair.Name }}</p>
-    </div>
-    <div>
+    </div> -->
+    <!-- <div>
       <input type="text" v-model="searchRegion" placeholder="Search">
-    </div>
+    </div> -->
     <div>
       <p>{{ city }}</p>
       <p>{{ condition.main }}</p>
       <p>{{ temp | roundUp }}</p>
     </div>
-    <div>
-      <ul>
-        <li v-for="data in prefs">
-          コード：{{ data.prefCode}}　県名：{{ data.prefName }}
-        </li>
-      </ul>
+    <div class="box">
+      <button v-on:click="pref(item.Roman)" v-for="item in items">
+        番号：{{ item.Id}}　県名：{{ item.Name }}
+      </button>
+      <p>{{ requestPref }}</p>
     </div>
   </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
