@@ -15,6 +15,8 @@ const items = [
       searchPrefecture: '', //入力された県名を格納
       searchRegion: '',
       prefs: '',
+      // code: '',
+      // name: '',
       city: null,
       temp: null,
       condition: {
@@ -41,7 +43,11 @@ const items = [
           "X-API-KEY": "ZTeuqJL7rj5gSslTavfjvbmV83NSvTvFUjQsNdY8"
         }
       })
-      .then(response => this.prefs = response.data)
+      // .then(function(response){
+      //   this.code = response.data.result.prefCode
+      //   this.name = response.data.result.prefName
+      // })
+      .then(response => this.prefs = response.data.result)
       .catch(function(error){
         console.log(error)
       })

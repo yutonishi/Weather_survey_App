@@ -24,7 +24,13 @@
       <p>{{ condition.main }}</p>
       <p>{{ temp | roundUp }}</p>
     </div>
-    <div>{{ prefs }}</div>
+    <div>
+      <ul>
+        <li v-for="data in prefs">
+          コード：{{ data.prefCode}}　県名：{{ data.prefName }}
+        </li>
+      </ul>
+    </div>
   </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
