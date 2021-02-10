@@ -18,6 +18,7 @@ const items = [
     el: '#app',
     data: {
       items: items,
+      nameJP: '',
       requestPref: '',
       city: null,
       temp: null,
@@ -26,6 +27,10 @@ const items = [
       }
     },
     methods: {
+      cityName: function(cityName){
+        this.nameJP = cityName;
+        console.log(cityName)
+      },
       pref: function(pref){
         this.requestPref = pref;
         console.log(pref)
@@ -44,9 +49,6 @@ const items = [
           console.log(error)
         })  
       }
-    },
-    beforeUpdate: function(){//mountedだとエラーになる（ライフサイクルについて）
-      // this.getData()
     },
     filters: {
       roundUp(value){
