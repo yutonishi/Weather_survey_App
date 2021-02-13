@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -20,5 +21,47 @@ button:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.geolonia-svg-map {
+  width: 100%;
+}
+
+.prefecture {
+  fill: #f7f7f7;
+  stroke: #666666;
+  cursor: pointer;
+}
+
+.prefecture:hover {
+  fill: red;
+}
+
+.geolonia-svg-map .boundary-line {
+  stroke: #999999;
+}
+
+/*仮のスタイル*/
+.container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container_txt {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 16px auto 0 auto;
 }
 /*# sourceMappingURL=style.css.map */

@@ -14,3 +14,39 @@ button {
   display: flex;
   flex-direction: column;
 }
+.geolonia-svg-map
+{
+  width: 100%;
+}
+
+.prefecture
+{
+  fill: #f7f7f7;
+  stroke: #666666;
+  cursor: pointer;
+
+  &:hover {
+    fill: red;
+  }
+}
+
+.geolonia-svg-map .boundary-line
+{
+  stroke: #999999;
+}
+
+/*仮のスタイル*/
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &_txt {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 16px auto 0 auto;
+  }
+}
