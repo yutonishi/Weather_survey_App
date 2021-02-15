@@ -343,6 +343,11 @@ var app = new Vue ({
       main: null
     }
   },
+  computed: {
+    roundUpTemp: function () {
+      return Math.ceil(this.temp);
+    }
+  },
   methods: {
     weatherData: function(){
       axios.get('https://api.openweathermap.org/data/2.5/weather', {
@@ -367,11 +372,6 @@ var app = new Vue ({
       console.log(prefJP) 
     }
   },
-  filters: {
-    roundUp(value){
-      return Math.ceil(value)
-    }
-  }
 })
 
 

@@ -42,7 +42,7 @@
     <div class="container">
       <p class="container_txt">{{ nameJP }}</p>
       <p class="container_txt">{{ condition.main }}</p>
-      <p class="container_txt">{{ temp | roundUp }}</p>
+      <p class="container_txt" v-if="roundUpTemp != 0">{{ roundUpTemp }}℃</p>
     </div>
   </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
