@@ -28,7 +28,7 @@
         <desc>Created by Geolonia (https://geolonia.com/).</desc>
         <g class="svg-map" transform="matrix(1.028807, 0, 0, 1.028807, -47.544239, -28.806583)">
           <g class="prefectures" transform="matrix(1, 0, 0, 1, 6, 18)">
-            <g v-for="item in items"  v-on:click="prefEn(item.Roman); prefJP(item.Name)" v-bind:class="item.className" stroke-linejoin="round" fill="#EEEEEE" fill-rule="nonzero" stroke="#000000" stroke-width="1.0" v-bind:transform="item.transform" v-html="item.polygon">
+            <g v-for="item in items"  v-on:click="prefId(item.Id); prefJP(item.Name)" v-bind:class="item.className" stroke-linejoin="round" fill="#EEEEEE" fill-rule="nonzero" stroke="#000000" stroke-width="1.0" v-bind:transform="item.transform" v-html="item.polygon">
               <title>{{ item.Name }} / {{ item.Roman }}</title>
             </g>
           </g>
@@ -43,6 +43,10 @@
       <p class="container_txt">{{ nameJP }}</p>
       <p class="container_txt">{{ condition.main }}</p>
       <p class="container_txt" v-if="roundUpTemp != 0">{{ roundUpTemp }}℃</p>
+    </div>
+    <div class="container" v-fot="data in forecastList">
+      <p class="container_txt">{{ data.dt_txt }}</p>
+      <p class="container_txt">{{ data.weather.main }}</p>
     </div>
   </div>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
