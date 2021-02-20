@@ -378,6 +378,7 @@ var items = [
   }
 ]
 
+
 var app = new Vue ({
   el: '#app',
   data: {
@@ -390,7 +391,7 @@ var app = new Vue ({
     condition: {
       main: null
     },
-    forecastList: []
+    tempFore: ''
   },
   computed: {
     roundUpTemp: function () {
@@ -413,27 +414,32 @@ var app = new Vue ({
     },
     forecastData: function(){
       axios.get('https://api.openweathermap.org/data/2.5/forecast', {
-        params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
+        params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}//東京の５日間の天気予報
       })
-      .then(response => {
-        this.forecastList = response.data;
-      })
+      .then(function(response){
+        this.tempFore = response.data.list[1].main.temp
+      }.bind(this))
       .catch(function(error){
         console.log(error)
       })
+      console.log(this.tempFore)
     },
     prefId: function(prefId){
       this.cityId = prefId;
       console.log(prefId)
-      this.weatherData()
       this.forecastData()
     },
     prefJP: function(prefJP){
       this.nameJP = prefJP;
-      console.log(prefJP) 
+      console.log(prefJP)
     },
   },
 })
+
+
+
+
+
 
 
 // const prefecture = document.querySelectorAll( '.prefecture' )
