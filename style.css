@@ -71,4 +71,16 @@ button:hover {
   width: 200px;
   height: 40px;
 }
+
+.card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: gray;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: white;
+}
 /*# sourceMappingURL=style.css.map */

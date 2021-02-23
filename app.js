@@ -379,6 +379,7 @@ var items = [
 ]
 
 
+
 var app = new Vue ({
   el: '#app',
   data: {
@@ -391,7 +392,10 @@ var app = new Vue ({
     condition: {
       main: null
     },
-    tempFore: ''
+    forecastData: [],
+    forecastTemp: [],
+    forecastTime: [],
+    allData: ''
   },
   computed: {
     roundUpTemp: function () {
@@ -399,7 +403,7 @@ var app = new Vue ({
     }
   },
   methods: {
-    weatherData: function(){
+    getWeather: function(){
       axios.get('https://api.openweathermap.org/data/2.5/weather', {
         params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
       })
@@ -412,22 +416,35 @@ var app = new Vue ({
         console.log(error)
       })
     },
-    forecastData: function(){
+    getForecast: function(){
       axios.get('https://api.openweathermap.org/data/2.5/forecast', {
-        params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}//東京の５日間の天気予報
+        params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
       })
       .then(function(response){
-        this.tempFore = response.data.list[1].main.temp
+        //5日間の3時間の天気予報をまとめて取得
+        this.forecastData = response.data.list
       }.bind(this))
       .catch(function(error){
         console.log(error)
       })
-      console.log(this.tempFore)
+      this.createArray()
+    },
+    createArray: function(){
+      forecastTemp = this.forecastData.map((obj) => obj.main.temp)
+      forecastTime = this.forecastData.map((obj) => obj.dt_txt)
+      allData = forecastTemp.map((tempf, i) => ({
+        tempf: forecastTemp[i],
+        time: forecastTime[i]
+      }))
+      console.log(forecastTemp)
+      console.log(forecastTime)
+      console.log(allData)
     },
     prefId: function(prefId){
       this.cityId = prefId;
       console.log(prefId)
-      this.forecastData()
+      this.getForecast()
+      this.getWeather()
     },
     prefJP: function(prefJP){
       this.nameJP = prefJP;
@@ -435,9 +452,6 @@ var app = new Vue ({
     },
   },
 })
-
-
-
 
 
 
@@ -459,3 +473,30 @@ var app = new Vue ({
 // prefJP(items.Name); prefEn(items.Roman)
   
 // JSでディレクティブを出力するのはうまくいかないので直接書く
+
+// var app = new Vue ({
+//   el: '#app',
+//   data: {
+//     forecasts: [],
+//     newData: ''
+//   },
+//   methods: {
+//     forecastData: function(){  //v-on:click="forecastData"
+//       axios.get('https://api.openweathermap.org/data/2.5/forecast', {
+//         params: {id: '2130037', APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}//北海道
+//       })
+//       .then(function(response){
+//         this.forecasts = response.data.list
+//       }.bind(this))
+//       .catch(function(error){
+//         console.log(error)
+//       })
+//       this.test()
+//     },
+//     test: function(){
+//       this.newData = forecasts.map((obj) => obj.main.temp)
+//       console.log(newData)
+//     }
+//   }
+// })
+
