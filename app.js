@@ -387,15 +387,16 @@ var app = new Vue ({
     nameEn: '',
     nameJP: '',
     cityId: '',
+    hoverSwitch: false,
     city: null,
     temp: null,
     condition: {
       main: null
     },
-    forecastData: [],
-    forecastTemp: [],
-    forecastTime: [],
-    allData: []
+    allData: [],//jsonの中身全てを持つ配列
+    forecastTemp: [],//forecastDataに突っ込む用の配列。最終的には使わない
+    forecastTime: [],//forecastDataに突っ込む用の配列。最終的には使わない
+    forecastData: [],//3時間ごと、5日間の必要な予報データを全て持つオブジェクトの配列
   },
   computed: {
     roundUpTemp: function () {
@@ -424,12 +425,12 @@ var app = new Vue ({
       })
       .then(function(response){
         //5日間の3時間の天気予報をまとめて取得
-        this.forecastData = response.data.list
-        this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
-        this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
-        this.allData = this.forecastTemp.map((tempf, i) => ({
-          tempf: this.forecastTemp[i],
-          time: this.forecastTime[i]
+        this.allData = response.data.list
+        this.forecastTemp = this.allData.map((obj) => obj.main.temp)
+        this.forecastTime = this.allData.map((obj) => obj.dt_txt)
+        this.forecastData = this.allData.map((tempf, i) => ({
+          temp_f: this.forecastTemp[i],
+          time_f: this.forecastTime[i]
         }))
       }.bind(this))
       .catch(function(error){
@@ -466,6 +467,17 @@ var app = new Vue ({
       this.nameJP = prefJP;
       console.log(prefJP)
     },
+    mouseOver: function(mouseOver){
+      this.cityId = mouseOver;
+      this.nameJP = mouseOver
+      console.log(mouseOver)
+      this.hoverSwitch = true
+    },
+    mouseLeave: function(mouseLeave){
+      this.cityId = mouseLeave;
+      console.log(mouseLeave)
+      this.hoverSwitch = false
+    }
   },
 })
 
