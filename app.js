@@ -395,7 +395,7 @@ var app = new Vue ({
     forecastData: [],
     forecastTemp: [],
     forecastTime: [],
-    allData: ''
+    allData: []
   },
   computed: {
     roundUpTemp: function () {
@@ -415,7 +415,9 @@ var app = new Vue ({
       .catch(function(error){
         console.log(error)
       })
+      console.log(this.temp)
     },
+
     getForecast: function(){
       axios.get('https://api.openweathermap.org/data/2.5/forecast', {
         params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
@@ -423,23 +425,37 @@ var app = new Vue ({
       .then(function(response){
         //5日間の3時間の天気予報をまとめて取得
         this.forecastData = response.data.list
+        this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
+        this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
+        this.allData = this.forecastTemp.map((tempf, i) => ({
+          tempf: this.forecastTemp[i],
+          time: this.forecastTime[i]
+        }))
       }.bind(this))
       .catch(function(error){
         console.log(error)
       })
-      this.createArray()
+      console.log(this.forecastData)
+      console.log(this.forecastTemp)
+      console.log(this.forecastTime)
+      console.log(this.allData)
+      // this.createArray()
     },
-    createArray: function(){
-      forecastTemp = this.forecastData.map((obj) => obj.main.temp)
-      forecastTime = this.forecastData.map((obj) => obj.dt_txt)
-      allData = forecastTemp.map((tempf, i) => ({
-        tempf: forecastTemp[i],
-        time: forecastTime[i]
-      }))
-      console.log(forecastTemp)
-      console.log(forecastTime)
-      console.log(allData)
-    },
+
+    // createArray: function(){
+    //   //forecasgTemp, forecastTimeにthis.をつけるとエラーは出ないけど、allDataがうまく生成されない
+    //   this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
+    //   this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
+    //   this.allData = this.forecastTemp.map((tempf, i) => ({
+    //     tempf: this.forecastTemp[i],
+    //     time: this.forecastTime[i]
+    //   }))
+    //   console.log(this.forecastData)
+    //   console.log(this.forecastTemp)
+    //   console.log(this.forecastTime)
+    //   console.log(this.allData)
+    // },
+
     prefId: function(prefId){
       this.cityId = prefId;
       console.log(prefId)
