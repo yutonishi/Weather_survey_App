@@ -80,6 +80,7 @@ button:hover {
           align-items: center;
   width: 100%;
   height: auto;
+  background-color: #bbbbbb;
 }
 
 .sidebar_repetition {

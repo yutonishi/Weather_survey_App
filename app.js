@@ -388,6 +388,7 @@ var app = new Vue ({
     nameJP: '',
     cityId: '',
     hoverSwitch: false,
+    clickSwitch: false,
     city: null,
     temp: null,
     condition: {
@@ -443,20 +444,6 @@ var app = new Vue ({
       // this.createArray()
     },
 
-    // createArray: function(){
-    //   //forecasgTemp, forecastTimeにthis.をつけるとエラーは出ないけど、allDataがうまく生成されない
-    //   this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
-    //   this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
-    //   this.allData = this.forecastTemp.map((tempf, i) => ({
-    //     tempf: this.forecastTemp[i],
-    //     time: this.forecastTime[i]
-    //   }))
-    //   console.log(this.forecastData)
-    //   console.log(this.forecastTemp)
-    //   console.log(this.forecastTime)
-    //   console.log(this.allData)
-    // },
-
     prefId: function(prefId){
       this.cityId = prefId;
       console.log(prefId)
@@ -476,8 +463,10 @@ var app = new Vue ({
     mouseLeave: function(mouseLeave){
       this.cityId = mouseLeave;
       console.log(mouseLeave)
-      this.hoverSwitch = false
-    }
+    },
+    mouseClick: function(){
+      this.clickSwitch = true
+    },
   },
 })
 
@@ -528,3 +517,19 @@ var app = new Vue ({
 //   }
 // })
 
+
+
+
+    // createArray: function(){
+    //   //forecasgTemp, forecastTimeにthis.をつけるとエラーは出ないけど、allDataがうまく生成されない
+    //   this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
+    //   this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
+    //   this.allData = this.forecastTemp.map((tempf, i) => ({
+    //     tempf: this.forecastTemp[i],
+    //     time: this.forecastTime[i]
+    //   }))
+    //   console.log(this.forecastData)
+    //   console.log(this.forecastTemp)
+    //   console.log(this.forecastTime)
+    //   console.log(this.allData)
+    // },
