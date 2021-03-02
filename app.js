@@ -386,12 +386,14 @@ var app = new Vue ({
     items: items,
     nameEn: '',
     nameJP: '',
+    nameJP_w: '',
     cityId: '',
     hoverSwitch: false,
     clickSwitch: false,
-    city: null,
-    temp: null,
-    condition: {
+    clickSwitchSc: false,
+    city_w: null,
+    temp_w: null,
+    condition_w: {
       main: null
     },
     allData: [],//jsonの中身全てを持つ配列
@@ -400,8 +402,8 @@ var app = new Vue ({
     forecastData: [],//3時間ごと、5日間の必要な予報データを全て持つオブジェクトの配列
   },
   computed: {
-    roundUpTemp: function () {
-      return Math.ceil(this.temp);
+    roundUpTemp_w: function () {
+      return Math.ceil(this.temp_w);
     }
   },
   methods: {
@@ -410,14 +412,13 @@ var app = new Vue ({
         params: {id: this.cityId, APPID: '0df130b4cca7062f4bd8ec6b62fcdcc2'}
       })
       .then(function(response){
-        this.city = response.data.name
-        this.temp = response.data.main.temp - 273
-        this.condition = response.data.weather[0]
+        this.city_w = response.data.name
+        this.temp_w = response.data.main.temp - 273
+        this.condition_w = response.data.weather[0]
       }.bind(this))
       .catch(function(error){
         console.log(error)
       })
-      console.log(this.temp)
     },
 
     getForecast: function(){
@@ -429,7 +430,7 @@ var app = new Vue ({
         this.allData = response.data.list
         this.forecastTemp = this.allData.map((obj) => obj.main.temp)
         this.forecastTime = this.allData.map((obj) => obj.dt_txt)
-        this.forecastData = this.allData.map((tempf, i) => ({
+        this.forecastData = this.forecastTemp.map((temp_f, i) => ({
           temp_f: this.forecastTemp[i],
           time_f: this.forecastTime[i]
         }))
@@ -437,41 +438,51 @@ var app = new Vue ({
       .catch(function(error){
         console.log(error)
       })
-      console.log(this.forecastData)
+      // this.createArray()
       console.log(this.forecastTemp)
       console.log(this.forecastTime)
-      console.log(this.allData)
-      // this.createArray()
+      console.log(this.forecastData)
     },
 
-    prefId: function(prefId){
-      this.cityId = prefId;
-      console.log(prefId)
-      this.getForecast()
-      this.getWeather()
-    },
-    prefJP: function(prefJP){
-      this.nameJP = prefJP;
-      console.log(prefJP)
-    },
     mouseOver: function(mouseOver){
-      this.cityId = mouseOver;
-      this.nameJP = mouseOver
-      console.log(mouseOver)
+      this.nameJP = mouseOver //items内の'Name'
+      this.exchangeSwitchOver()
+    },
+    exchangeSwitchOver: function(){
       this.hoverSwitch = true
     },
-    mouseLeave: function(mouseLeave){
-      this.cityId = mouseLeave;
-      console.log(mouseLeave)
+    mouseLeave: function(){
+      this.hoverSwitch = false
     },
-    mouseClick: function(){
+
+    mouseClick: function(mouseClick){
+      this.cityId = mouseClick //items内の'Id'
+      this.clickSwitchSc = false //他の県をクリックした時、予報が消えるようにする
+      this.hoverSwitch = false //他の県をクリックした時、案内のメッセージが消えるようにする
+      this.exchangeSwitchClick()
+      this.getWeather()
+      this.getForecast()
+    },
+    getNameJP: function(getNameJP){
+      this.nameJP_w = getNameJP
+    },
+    exchangeSwitchClick: function(){
       this.clickSwitch = true
     },
+
+    displayForecast: function(){
+      this.clickSwitchSc = true
+    },
+
+    deleteBtn: function(){
+      this.clickSwitch = false
+      this.clickSwitchSc = false
+    }
   },
 })
 
 
-
+// v-on:click="prefId(item.Id); prefJP(item.Name)" 
 
 // const prefecture = document.querySelectorAll( '.prefecture' )
 // const prefectures = document.querySelectorAll( '.prefectures' )
@@ -519,17 +530,14 @@ var app = new Vue ({
 
 
 
-
-    // createArray: function(){
-    //   //forecasgTemp, forecastTimeにthis.をつけるとエラーは出ないけど、allDataがうまく生成されない
-    //   this.forecastTemp = this.forecastData.map((obj) => obj.main.temp)
-    //   this.forecastTime = this.forecastData.map((obj) => obj.dt_txt)
-    //   this.allData = this.forecastTemp.map((tempf, i) => ({
-    //     tempf: this.forecastTemp[i],
-    //     time: this.forecastTime[i]
-    //   }))
-    //   console.log(this.forecastData)
-    //   console.log(this.forecastTemp)
-    //   console.log(this.forecastTime)
-    //   console.log(this.allData)
+    // prefId: function(prefId){
+    //   this.cityId = prefId;
+    //   this.getWeather()
+    //   this.displayWeather()
+    //   // this.getForecast()
+    // },
+    // prefJP: function(prefJP){
+    //   this.nameJP = prefJP;
+    //   console.log(prefJP)
+    //   this.mouseOver()
     // },
