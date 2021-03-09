@@ -3,11 +3,16 @@
 }
 
 button {
-  text-decoration: none;
-  
-  &:hover {
-    opacity: .6s;
-  }
+	background: none;
+	border: none;
+	outline: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+p {
+  margin: 0;
 }
 
 .box {
@@ -24,10 +29,6 @@ button {
   fill: #f7f7f7;
   stroke: #666666;
   cursor: pointer;
-
-  &:hover {
-    fill: red;
-  }
 }
 
 .geolonia-svg-map .boundary-line
@@ -37,65 +38,279 @@ button {
 
 /*仮のスタイル*/
 
-#map {
-  width: calc(100% - 300px);
-  margin-left: auto;
+body {
+  margin: 0;
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 300px;
+.container {
+  width: 100%;
   height: 100vh;
-  background-color: #CCCCCC;
-  overflow-y: scroll;
 
-  &_message {
-    width: 100%;
-    height: 12px;
-    margin-top: 16px;
-
-    &_txt {
-      width: 100%;
-      font-size: 12px;
-      line-height: 12px;
-      color: black;
-      margin: 0;
-    }
-  }
-
-  &_today {
-    position: fixed;
-    top: 28px;
+  &_main {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    width: 300px;
-    height: auto;
-    background-color: gray;
+    width: calc(100% - 330px);
+    height: 100%;
+    margin-left: auto;
 
-    &_btn {
-      width: 100%;
+    &_map {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 800px;
+      height: 100%;
+      margin: 0;
+      z-index: 0;
+      background-image: url(images/photo/bgimage.jpg);
+      background-position: top left;
+      background-size: cover;
 
-      &_delete {
-        width: 36px;
-        margin-right: 8px;
-        background-color: white;
+      &::before {
+        content: '';
+        background: inherit;
+        -webkit-filter: blur(10px);
+        -moz-filter: blur(10px);
+        -o-filter: blur(10px);
+        -ms-filter: blur(10px);
+        filter: blur(10px);
+        position: absolute;
+        top: 0;
+        left: 0;
+      //画像の端までぼけてしまうため切り落とすため/
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        z-index: -1;
+      }
+
+      & svg {
+        z-index: 10;
       }
     }
   }
 
-  &_repetition {
+  &_sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+    height: 100%;
+    padding: 0 16px;
+    background-color: #292D39;
+    box-sizing: border-box;
+  
+    &_message {
+      width: 100%;
+      height: 12px;
+      margin-top: 16px;
+  
+      &_txt {
+        width: 100%;
+        font-size: 12px;
+        line-height: 12px;
+        color: black;
+        margin: 0;
+      }
+    }
+  
+    &_today {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background-color: #4D5161;
+      margin-top: 30px;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      padding: 0 16px;
+      box-sizing: border-box;
+
+      &_delete {
+        width: 100%;
+        height: 26px;
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 16px;
+
+        &_round {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 26px;
+          height: 26px;
+          border-radius: 13px;
+          border: 1px solid #1DC7D1;
+          transition: all 0.3s;
+          font-size: 23px;
+          color: #ffffff;
+          background-color: #1DC7D1;
+
+          &:hover {
+            background-color: #4D5161;
+          }
+        }
+      }
+
+      &_txt {
+        width: 100%;
+        text-align: start;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      &_prefecture {
+        width: 100%;
+        text-align: start;
+        font-size: 32px;
+        font-weight: lighter;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      &_icon {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-bottom: 4px;
+
+        & img {
+          width: 100px;
+          height: auto;
+          filter: brightness(0) invert(1);//PNGを白にする・0と1を入れ替えると黒になる
+        }
+      }
+
+      &_condition {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        font-weight: normal;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      &_temperature {
+        width: 100%;
+        text-align: center;
+        font-size: 32px;
+        font-weight: lighter;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+  
+      &_btn {
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #1DC7D1;
+        border: 1px solid #1DC7D1;
+        color: #ffffff;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: normal;
+        transition: all .3s;
+        cursor: pointer;
+        margin: 0 auto 16px auto;
+
+        &:hover {
+          background-color: #4D5161;
+        }
+      }
+    }
+
+    &_next {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background-color: #4D5161;
+      margin-bottom: 24px;
+      border-radius: 8px;
+      padding: 0 16px;
+      box-sizing: border-box;
+      overflow-y: scroll;
+
+      &_title {
+        width: 100%;
+        text-align: start;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        margin-top: 24px;
+        padding-bottom: 8px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #ffffff;
+      }
+
+      &_data {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: auto;
+        margin-bottom: 16px;
+
+        &:nth-child(8n + 1) {
+          border-bottom: 1px solid #ffffff;
+          padding-bottom: 16px;
+          margin-bottom: 16px;
+        }
+
+        &_time {
+          width: fit-content;
+          font-size: 16px;
+          line-height: 16px;
+          font-weight: normal;
+          color: #ffffff;
+        }
+
+        &_icon {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 24px;
+          height: 24px;
+          margin-left: auto;
+
+          & img {
+            width: 100%;
+            height: 100%;
+            filter: brightness(0) invert(1);
+          }
+        }
+
+        &_temperatureMax {
+          width: 24px;
+          font-size: 16px;
+          line-height: 16px;
+          font-weight: normal;
+          color: #ffffff;
+          margin-left: 24px;
+        }
+
+        &_temperatureMin {
+          width: 24px;
+          font-size: 16px;
+          line-height: 16px;
+          font-weight: normal;
+          color: #ffffff;
+          margin-left: 8px;
+          opacity: .6;
+        }
+      }
+    }
+  }
+  
+  .transition {
+    transition: .3s;
   }
 }
 
-.transition {
-  transition: .3s;
-}
