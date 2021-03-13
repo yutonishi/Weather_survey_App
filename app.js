@@ -391,6 +391,8 @@ var app = new Vue ({
     hoverSwitch: false,
     clickSwitch: false,
     clickSwitchSc: false,
+    isHovered: false,
+    isClicked: false,
     city_w: null,
     temp_w: null,
     condition_w: {
@@ -456,17 +458,6 @@ var app = new Vue ({
       console.log(this.forecastData)
     },
 
-    mouseOver: function(mouseOver){
-      this.nameJP = mouseOver //items内の'Roman'
-      this.exchangeSwitchOver()
-    },
-    exchangeSwitchOver: function(){
-      this.hoverSwitch = true
-    },
-    mouseLeave: function(){
-      this.hoverSwitch = false
-    },
-
     mouseClick: function(mouseClick){
       this.cityId = mouseClick //items内の'Id'
       this.clickSwitchSc = false //他の県をクリックした時、予報が消えるようにする
@@ -474,6 +465,7 @@ var app = new Vue ({
       this.exchangeSwitchClick()
       this.getWeather()
       this.getForecast()
+      this.clickEvent()
     },
     getNameJP: function(getNameJP){
       this.nameJP_w = getNameJP
@@ -493,6 +485,20 @@ var app = new Vue ({
     deleteBtn: function(){
       this.clickSwitch = false
       this.clickSwitchSc = false
+      this.isHovered = false
+      this.isClicked = false
+    },
+
+    hoverEvent: function(hoverEvent){
+      this.nameJP = hoverEvent
+      this.isHovered = true
+    },
+    hoverLeave: function(){
+      this.isHovered = false
+    },
+    clickEvent: function(){
+      this.isClicked = true
+      this.isHovered = false
     }
   },
 })
