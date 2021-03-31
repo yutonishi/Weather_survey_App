@@ -33,7 +33,7 @@
     <div class="container_sidebar">
       <div class="container_sidebar_msg">
         <p class="container_sidebar_msg_txt" v-if="isHovered">
-          <span class="container_sidebar_msg_txt_normal">天気を表示する</span>
+          {{ nameJP }}<span class="container_sidebar_msg_txt_normal">の天気を表示する</span>
         </p>
         <div class="c-scroll" v-if="isHovered"><span></span></div>
       </div>
@@ -48,7 +48,7 @@
         </div>
         <p class="container_sidebar_today_condition">{{ condition_w.main }}</p>
         <p class="container_sidebar_today_temperature" v-if="roundUpTemp_w != 0">{{ roundUpTemp_w }}°</p>
-        <button class="container_sidebar_today_btn" v-on:click="displayForecast" type="button">{{ nameJP_w }}の天気予報を表示</button>
+        <button class="container_sidebar_today_btn" v-on:click="displayForecast" type="button">{{ nameJP_w }}天気予報を表示</button>
       </div>
       <div class="container_sidebar_next" v-if="clickSwitchSc">
         <div class="container_sidebar_next_title">Forecast</div>
